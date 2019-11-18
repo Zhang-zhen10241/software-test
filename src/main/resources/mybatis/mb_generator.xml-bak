@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<!-- 引入配置文件 -->  
+    
+    <classPathEntry location="E:/auto/qaplatforms/src/main/resources/mybatis/mysql-connector-java-5.1.37.jar" />
+    <context id="simpleTestAppName">
+    	<!-- 注释 -->  
+        <commentGenerator >  
+            <property name="suppressAllComments" value="true"/><!-- 是否取消注释 -->  
+            <property name="suppressDate" value="fasel" /> <!-- 是否生成注释代时间戳-->  
+        </commentGenerator>  
+        
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+            connectionURL="jdbc:mysql://10.99.169.189:3306/testlink?useUnicode=true&amp;characterEncoding=UTF-8"
+            userId="readuser" password="123456" />
+        <javaModelGenerator targetPackage="cc.simpletest.qa.test.model" targetProject="plt-test" />
+        <sqlMapGenerator targetPackage="cc.simpletest.qa.test.mapping" targetProject="plt-test" />
+        <javaClientGenerator targetPackage="cc.simpletest.qa.test.mapper" targetProject="plt-test"  type="XMLMAPPER" />
+        
+		<table tableName="mitcversions" domainObjectName="Mitcversions" enableCountByExample="false" enableUpdateByExample="false"  enableDeleteByExample="false" enableSelectByExample="false"  selectByExampleQueryId="false"></table> 
+		
+    </context>
+</generatorConfiguration>

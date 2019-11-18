@@ -1,0 +1,247 @@
+<!-- <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.simpletest.qa.test.mapper.MitcversionsMapper">
+  <resultMap id="BaseResultMap" type="cc.simpletest.qa.test.model.Mitcversions">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="tc_external_id" jdbcType="INTEGER" property="tcExternalId" />
+    <result column="version" jdbcType="SMALLINT" property="version" />
+    <result column="layout" jdbcType="SMALLINT" property="layout" />
+    <result column="status" jdbcType="SMALLINT" property="status" />
+    <result column="importance" jdbcType="SMALLINT" property="importance" />
+    <result column="author_id" jdbcType="INTEGER" property="authorId" />
+    <result column="creation_ts" jdbcType="TIMESTAMP" property="creationTs" />
+    <result column="updater_id" jdbcType="INTEGER" property="updaterId" />
+    <result column="modification_ts" jdbcType="TIMESTAMP" property="modificationTs" />
+    <result column="active" jdbcType="BIT" property="active" />
+    <result column="is_open" jdbcType="BIT" property="isOpen" />
+    <result column="execution_type" jdbcType="BIT" property="executionType" />
+    <result column="estimated_exec_duration" jdbcType="DECIMAL" property="estimatedExecDuration" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cc.simpletest.qa.test.model.MitcversionsWithBLOBs">
+    <result column="summary" jdbcType="LONGVARCHAR" property="summary" />
+    <result column="preconditions" jdbcType="LONGVARCHAR" property="preconditions" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, tc_external_id, version, layout, status, importance, author_id, creation_ts, 
+    updater_id, modification_ts, active, is_open, execution_type, estimated_exec_duration
+  </sql>
+  <sql id="Blob_Column_List">
+    summary, preconditions
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mitcversions
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mitcversions
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cc.simpletest.qa.test.model.MitcversionsWithBLOBs">
+    insert into mitcversions (id, tc_external_id, version, 
+      layout, status, importance, 
+      author_id, creation_ts, updater_id, 
+      modification_ts, active, is_open, 
+      execution_type, estimated_exec_duration, summary, 
+      preconditions)
+    values (#{id,jdbcType=INTEGER}, #{tcExternalId,jdbcType=INTEGER}, #{version,jdbcType=SMALLINT}, 
+      #{layout,jdbcType=SMALLINT}, #{status,jdbcType=SMALLINT}, #{importance,jdbcType=SMALLINT}, 
+      #{authorId,jdbcType=INTEGER}, #{creationTs,jdbcType=TIMESTAMP}, #{updaterId,jdbcType=INTEGER}, 
+      #{modificationTs,jdbcType=TIMESTAMP}, #{active,jdbcType=BIT}, #{isOpen,jdbcType=BIT}, 
+      #{executionType,jdbcType=BIT}, #{estimatedExecDuration,jdbcType=DECIMAL}, #{summary,jdbcType=LONGVARCHAR}, 
+      #{preconditions,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cc.simpletest.qa.test.model.MitcversionsWithBLOBs">
+    insert into mitcversions
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="tcExternalId != null">
+        tc_external_id,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="layout != null">
+        layout,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="importance != null">
+        importance,
+      </if>
+      <if test="authorId != null">
+        author_id,
+      </if>
+      <if test="creationTs != null">
+        creation_ts,
+      </if>
+      <if test="updaterId != null">
+        updater_id,
+      </if>
+      <if test="modificationTs != null">
+        modification_ts,
+      </if>
+      <if test="active != null">
+        active,
+      </if>
+      <if test="isOpen != null">
+        is_open,
+      </if>
+      <if test="executionType != null">
+        execution_type,
+      </if>
+      <if test="estimatedExecDuration != null">
+        estimated_exec_duration,
+      </if>
+      <if test="summary != null">
+        summary,
+      </if>
+      <if test="preconditions != null">
+        preconditions,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="tcExternalId != null">
+        #{tcExternalId,jdbcType=INTEGER},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=SMALLINT},
+      </if>
+      <if test="layout != null">
+        #{layout,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="importance != null">
+        #{importance,jdbcType=SMALLINT},
+      </if>
+      <if test="authorId != null">
+        #{authorId,jdbcType=INTEGER},
+      </if>
+      <if test="creationTs != null">
+        #{creationTs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updaterId != null">
+        #{updaterId,jdbcType=INTEGER},
+      </if>
+      <if test="modificationTs != null">
+        #{modificationTs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null">
+        #{active,jdbcType=BIT},
+      </if>
+      <if test="isOpen != null">
+        #{isOpen,jdbcType=BIT},
+      </if>
+      <if test="executionType != null">
+        #{executionType,jdbcType=BIT},
+      </if>
+      <if test="estimatedExecDuration != null">
+        #{estimatedExecDuration,jdbcType=DECIMAL},
+      </if>
+      <if test="summary != null">
+        #{summary,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="preconditions != null">
+        #{preconditions,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.simpletest.qa.test.model.MitcversionsWithBLOBs">
+    update mitcversions
+    <set>
+      <if test="tcExternalId != null">
+        tc_external_id = #{tcExternalId,jdbcType=INTEGER},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=SMALLINT},
+      </if>
+      <if test="layout != null">
+        layout = #{layout,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="importance != null">
+        importance = #{importance,jdbcType=SMALLINT},
+      </if>
+      <if test="authorId != null">
+        author_id = #{authorId,jdbcType=INTEGER},
+      </if>
+      <if test="creationTs != null">
+        creation_ts = #{creationTs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updaterId != null">
+        updater_id = #{updaterId,jdbcType=INTEGER},
+      </if>
+      <if test="modificationTs != null">
+        modification_ts = #{modificationTs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="active != null">
+        active = #{active,jdbcType=BIT},
+      </if>
+      <if test="isOpen != null">
+        is_open = #{isOpen,jdbcType=BIT},
+      </if>
+      <if test="executionType != null">
+        execution_type = #{executionType,jdbcType=BIT},
+      </if>
+      <if test="estimatedExecDuration != null">
+        estimated_exec_duration = #{estimatedExecDuration,jdbcType=DECIMAL},
+      </if>
+      <if test="summary != null">
+        summary = #{summary,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="preconditions != null">
+        preconditions = #{preconditions,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cc.simpletest.qa.test.model.MitcversionsWithBLOBs">
+    update mitcversions
+    set tc_external_id = #{tcExternalId,jdbcType=INTEGER},
+      version = #{version,jdbcType=SMALLINT},
+      layout = #{layout,jdbcType=SMALLINT},
+      status = #{status,jdbcType=SMALLINT},
+      importance = #{importance,jdbcType=SMALLINT},
+      author_id = #{authorId,jdbcType=INTEGER},
+      creation_ts = #{creationTs,jdbcType=TIMESTAMP},
+      updater_id = #{updaterId,jdbcType=INTEGER},
+      modification_ts = #{modificationTs,jdbcType=TIMESTAMP},
+      active = #{active,jdbcType=BIT},
+      is_open = #{isOpen,jdbcType=BIT},
+      execution_type = #{executionType,jdbcType=BIT},
+      estimated_exec_duration = #{estimatedExecDuration,jdbcType=DECIMAL},
+      summary = #{summary,jdbcType=LONGVARCHAR},
+      preconditions = #{preconditions,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cc.simpletest.qa.test.model.Mitcversions">
+    update mitcversions
+    set tc_external_id = #{tcExternalId,jdbcType=INTEGER},
+      version = #{version,jdbcType=SMALLINT},
+      layout = #{layout,jdbcType=SMALLINT},
+      status = #{status,jdbcType=SMALLINT},
+      importance = #{importance,jdbcType=SMALLINT},
+      author_id = #{authorId,jdbcType=INTEGER},
+      creation_ts = #{creationTs,jdbcType=TIMESTAMP},
+      updater_id = #{updaterId,jdbcType=INTEGER},
+      modification_ts = #{modificationTs,jdbcType=TIMESTAMP},
+      active = #{active,jdbcType=BIT},
+      is_open = #{isOpen,jdbcType=BIT},
+      execution_type = #{executionType,jdbcType=BIT},
+      estimated_exec_duration = #{estimatedExecDuration,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper> -->
