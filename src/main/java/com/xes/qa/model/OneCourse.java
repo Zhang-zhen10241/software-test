@@ -10,6 +10,7 @@ public class OneCourse {
 	private String category;
 	private String catalog_num;
 	private String materialId;
+	private String jiangyiId;
 	private String teacherId;
 	private String counselorTeacherId;
 	private String cycleStr;
@@ -21,7 +22,7 @@ public class OneCourse {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public OneCourse(String cookie, String reviewCookie, String namePrefix,  String grade, String subject, String term, String category, String catalog_num, String materialId, String teacherId,
+	public OneCourse(String cookie, String reviewCookie, String namePrefix,  String grade, String subject, String term, String category, String catalog_num, String materialId, String jiangyiId,String teacherId,
 			String counselorTeacherId,  String cycleStr,String classLimit, String courseLimit,String existOutLineId) {
 		super();
 		this.cookie = cookie;
@@ -33,6 +34,7 @@ public class OneCourse {
 		this.category = category;
 		this.catalog_num = catalog_num;
 		this.materialId = materialId;
+		this.jiangyiId = jiangyiId;
 		this.teacherId = teacherId;
 		this.counselorTeacherId = counselorTeacherId;
 		this.cycleStr = cycleStr;
@@ -93,6 +95,12 @@ public class OneCourse {
 	}
 	public void setMaterialId(String materialId) {
 		this.materialId = materialId;
+	}
+	public void setJiangyiId(String jiangyiId) {
+		this.jiangyiId = jiangyiId;
+	}
+	public String getJiangyiId() {
+		return jiangyiId;
 	}
 	public String getTeacherId() {
 		return teacherId;

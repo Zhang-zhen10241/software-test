@@ -15,10 +15,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.mysql.jdbc.SocksProxySocketFactory;
 import com.xes.qa.model.OneCourse;
 import com.xes.qa.utils.HttpUtil;
 import com.xes.qa.utils.ToolUtil;
+
 
 /**   
  * @ClassName:CreateCourseNew   
@@ -37,11 +37,12 @@ public class CreateCourseNew {
 	//建课前就获取到的参数
 	static int catalog_num = 0;//场次数
 	static String namePrefix = "";//课程名称前缀，增加辨识度
+	static String courseName = "";//课程名称
 	static String cycleStr = "";//循环周期，如7
 	static String subject = "";//学科的key，如“数学”“语文”
 	static String category = "";//课程品类的key，如“直播小班”
-	static String materialId = "";//讲义ID
-	static String courseFileId = "";//课件ID
+	static String materialId = "";//课件ID
+	static String jiangyiId = "";//讲义ID
 	static String teacherId="";//主讲老师ID
 	static int courseLimit = 10;
 	static int classLimit = 2;
@@ -79,6 +80,7 @@ public class CreateCourseNew {
 		category = course.getCategory();
 		teacherId = course.getTeacherId();
 		materialId = course.getMaterialId();
+		jiangyiId = course.getJiangyiId();
 		existedOutlineId = course.getExistedOutlineId();
 		courseLimit = Integer.parseInt(course.getCourseLimit());
 		classLimit = Integer.parseInt(course.getClassLimit());
@@ -135,13 +137,20 @@ public class CreateCourseNew {
 			}	
 			//获得大纲目录ID
 			getOutlineCatalogIdsByHtml();
+			//添加课件
+			if(!materialId.equals("")){//如果未填写课件，则不进行添加步骤
+				if(!addMaterial()){				
+					result=  "添加课件失败" + errMessage;
+					return result;
+				}	
+			}	
 			//添加讲义
-			if(!materialId.equals("")){//如果未填写讲义，则不进行添加讲义步骤
+			if(!jiangyiId.equals("")){//如果未填写讲义，则不进行添加步骤
 				if(!addMaterial()){				
 					result=  "添加讲义失败" + errMessage;
 					return result;
 				}	
-			}			
+			}		
 			//创建时间模板
 			if(!addTimeTemplate(course)){				
 				result= "创建时间模板失败" + errMessage;
@@ -257,7 +266,7 @@ public class CreateCourseNew {
 		System.out.println("******开始新建大纲******");
 		String responseStr = null;
 		String url = "http://admin.xesv5.com/Outline/saveOutline";
-		//String referer = "http://admin.xesv5.com/Outline/addOutline";
+		String referer = "http://admin.xesv5.com/Outline/addOutline";
 		String contentType = "application/x-www-form-urlencoded; charset=UTF-8";
 		String gradeIDS = "";
 		String sendStr = "";
@@ -271,7 +280,7 @@ public class CreateCourseNew {
 		}	*/	
 		termIDS += "&term_ids[]=" + term;
 		String outlineName = namePrefix + "-测试-大纲";		
-		if(subject.equals("26")){//适配编程课，编程课的value为26
+		if(subject.equals("26")){
 			sendStr = "name=" + outlineName + "&category=" + category  + "&subject_ids=" + subject +gradeIDS+"&learningstage_ids=90"+ termIDS
 					+ "&language_type=1&year_id=22&textbook_id=&version_id=&difficulty_id=&area_id=1&price=1&catalog_num="
 					+ course.getCatalog_num() + "&outline_type=1";
@@ -465,7 +474,7 @@ public class CreateCourseNew {
 		String contentType = "application/x-www-form-urlencoded";		
 		String referer = "Referer: http://admin.xesv5.com/Outline/outlineMaterial?id="+outlineId;	
 		String sendStr = "";
-		if((!materialId.equals(""))&&courseFileId.equals("")&&outlineCatalogIdList.size()!=0){
+		if(((!materialId.equals(""))||(!jiangyiId.equals("")))&&outlineCatalogIdList.size()!=0){
 			String pre ="data={";
 			String id = "\"outline_id\":\""+outlineId+"\",";
 			String append_material_ids= "\"append_material_ids\":\"\",";
@@ -477,7 +486,8 @@ public class CreateCourseNew {
 					catalog_ids+=outlineCatalogIdList.get(i-1)+"\",\"";
 				}
 			}
-			String type_1 = "\"type_1_"+outlineCatalogIdList.get(0)+"\":\""+materialId+"\",";
+			String type_16 = "\"type_16_"+outlineCatalogIdList.get(0)+"\":\""+materialId+"\",";
+			String type_1 = "\"type_1_"+outlineCatalogIdList.get(0)+"\":\""+jiangyiId+"\",";
 			String preview_url = "\"preview_url\":[\"";
 			for(int i=1;i<=catalog_num;i++){
 				if(i==catalog_num){
@@ -497,13 +507,13 @@ public class CreateCourseNew {
 						end+=",";
 					}
 					if(i==catalog_num){
-						end+="\"type_1_"+outlineCatalogIdList.get(i-1)+"\":\""+materialId+"\","+"\"type_2_"+outlineCatalogIdList.get(i-1)+"\":\"\","+"\"type_53_"+outlineCatalogIdList.get(i-1)+"\":\"\""+"}";
+						end+="\"type_1_"+outlineCatalogIdList.get(i-1)+"\":\""+jiangyiId+"\","+"\"type_16_"+outlineCatalogIdList.get(i-1)+"\":\""+materialId+"\","+"\"type_2_"+outlineCatalogIdList.get(i-1)+"\":\"\","+"\"type_53_"+outlineCatalogIdList.get(i-1)+"\":\"\""+"}";
 					}else{
-						end+="\"type_1_"+outlineCatalogIdList.get(i-1)+"\":\""+materialId+"\","+"\"type_2_"+outlineCatalogIdList.get(i-1)+"\":\"\","+"\"type_53_"+outlineCatalogIdList.get(i-1)+"\":\"\""+",";
+						end+="\"type_1_"+outlineCatalogIdList.get(i-1)+"\":\""+jiangyiId+"\","+"\"type_16_"+outlineCatalogIdList.get(i-1)+"\":\""+materialId+"\","+"\"type_2_"+outlineCatalogIdList.get(i-1)+"\":\"\","+"\"type_53_"+outlineCatalogIdList.get(i-1)+"\":\"\""+",";
 					}
 				}
 			}
-			sendStr=pre+id+append_material_ids+catalog_ids+type_1+preview_url+end;
+			sendStr=pre+id+append_material_ids+catalog_ids+type_1+type_16+preview_url+end;
 		}	
 		System.out.println("上送数据信息为：" + sendStr);
 		responseStr = HttpUtil.sendPostRequestWithCookies(url,referer,sendStr,contentType,cookie);
@@ -545,15 +555,15 @@ public class CreateCourseNew {
 		String school_schedule="school_schedule=1&";
 		String plan_num = "plan_num="+catalog_num+"&";
 		String cycle = "cycle="+cycleStr;
-		String time = "&start_hour=19&start_minute=00&end_hour=21&end_minute=00&";
+		String time = "&start_hour=02&start_minute=00&end_hour=04&end_minute=00&";
 		String end = "planInfos=[";
 		for(int i=1;i<=catalog_num;i++){
 			int j=Integer.parseInt(cycleStr);
 			j=j*(i-1);
 			if(i==catalog_num){
-				end+="{\"day\":\""+ToolUtil.getDateFuture(j)+"\",\"hourStart\":\"19\",\"muniteStart\":\"00\",\"hourEnd\":\"21\",\"mumiteEnd\":\"00\"}]";
+				end+="{\"day\":\""+ToolUtil.getDateFuture(j+1)+"\",\"hourStart\":\"02\",\"muniteStart\":\"00\",\"hourEnd\":\"04\",\"mumiteEnd\":\"00\"}]";
 			}else{
-				end+="{\"day\":\""+ToolUtil.getDateFuture(j)+"\",\"hourStart\":\"19\",\"muniteStart\":\"00\",\"hourEnd\":\"21\",\"mumiteEnd\":\"00\"},";
+				end+="{\"day\":\""+ToolUtil.getDateFuture(j+1)+"\",\"hourStart\":\"02\",\"muniteStart\":\"00\",\"hourEnd\":\"04\",\"mumiteEnd\":\"00\"},";
 			}
 		}	
 		String sendStr = name+subjects+termIDS+time_slot+school_schedule+plan_num+cycle+time+end;
@@ -592,8 +602,9 @@ public class CreateCourseNew {
 		if(existedOutlineId.equals("")){
 			id = "&outline_id=" + outlineId;
 		}else{
-		    outlineId=existedOutlineId;
+			outlineId = existedOutlineId;
 			id = "&outline_id=" + outlineId;
+			
 		}		
 		String select_teacher_id = "&select_teacher_id="+teacherId;
 		String select_teacher_name="";
@@ -603,9 +614,9 @@ public class CreateCourseNew {
 			int j=Integer.parseInt(cycleStr);
 			j=j*(i-1);
 			if(i==catalog_num){
-				planInfos+="{\"catalogId\":\""+outlineCatalogIdList.get(i-1)+"\",\"mode\":\"1\",\"pattern\":\"1\",\"planName\":\"测试场次"+i+"\",\"teacherId\":\""+teacherId+"\",\"day\":\""+ToolUtil.getDateFuture(j)+"\",\"hourStart\":\"19\",\"muniteStart\":\"00\",\"hourEnd\":\"21\",\"mumiteEnd\":\"00\",\"videoResources\":\"\"}]";
+				planInfos+="{\"catalogId\":\""+outlineCatalogIdList.get(i-1)+"\",\"mode\":\"1\",\"pattern\":\"1\",\"planName\":\"测试场次"+i+"\",\"teacherId\":\""+teacherId+"\",\"day\":\""+ToolUtil.getDateFuture(j+1)+"\",\"hourStart\":\"02\",\"muniteStart\":\"00\",\"hourEnd\":\"04\",\"mumiteEnd\":\"00\",\"videoResources\":\"\"}]";
 			}else{
-				planInfos+="{\"catalogId\":\""+outlineCatalogIdList.get(i-1)+"\",\"mode\":\"1\",\"pattern\":\"1\",\"planName\":\"测试场次"+i+"\",\"teacherId\":\""+teacherId+"\",\"day\":\""+ToolUtil.getDateFuture(j)+"\",\"hourStart\":\"19\",\"muniteStart\":\"00\",\"hourEnd\":\"21\",\"mumiteEnd\":\"00\",\"videoResources\":\"\"},";
+				planInfos+="{\"catalogId\":\""+outlineCatalogIdList.get(i-1)+"\",\"mode\":\"1\",\"pattern\":\"1\",\"planName\":\"测试场次"+i+"\",\"teacherId\":\""+teacherId+"\",\"day\":\""+ToolUtil.getDateFuture(j+1)+"\",\"hourStart\":\"02\",\"muniteStart\":\"00\",\"hourEnd\":\"04\",\"mumiteEnd\":\"00\",\"videoResources\":\"\"},";
 			}
 		}
 		String sendStr = name+id+select_teacher_id+select_teacher_name+select_time_template_id+"&teacher_salary=0&term_id=0&planInfos=["+planInfos;
@@ -637,6 +648,7 @@ public class CreateCourseNew {
 		String responseStr = null;
 		String url = "http://admin.xesv5.com/Course/addCourse";
 		String contentType = "application/x-www-form-urlencoded";
+		courseName = namePrefix+"-测试-课程-"+detailedTime;
 		String sendStr = "name="+namePrefix+"-测试-课程-"+detailedTime+"&category="+category+"&plan_package_ids="+sessionPackageId;
 		System.out.println("上送数据信息为："+sendStr);
 		responseStr = HttpUtil.sendPostRequest2(url,sendStr,contentType,cookie);
@@ -847,7 +859,7 @@ public class CreateCourseNew {
 	 * @throws
 	 */
 	public static String result(){
-			return "建课成功，大纲ID："+outlineId+"，场次包ID："+sessionPackageId+"，课程ID："+courseId+"，辅导班ID："+counselorCourseId+"，买课链接为https://www.xueersi.com/course-detail/"+courseId+"/"+counselorCourseId;		
+			return "建课成功~~~"+"  课程名称："+courseName+"<br></br>大纲ID："+outlineId+"，场次包ID："+sessionPackageId+"，课程ID："+courseId+"，辅导班ID："+counselorCourseId+"<br></br>买课链接为:https://www.xueersi.com/course-detail/"+courseId+"/"+counselorCourseId;		
 	}
 	
 	

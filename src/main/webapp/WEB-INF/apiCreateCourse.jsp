@@ -1,12 +1,11 @@
 <%@ page language="java" pageEncoding="UTF-8"%> 
-
 <!DOCTYPE html>
 <html lang="en">
 
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>普通建课-学而思网校网校，自主建课页面欢迎您！</title>
+		<title>学而思网校网校，自主建课页面欢迎您！</title>
 		<meta name="description" content="这是一个 index 页面">
 		<meta name="keywords" content="index">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -62,15 +61,27 @@
 				<ul class="sidebar-nav">
 					
 					<li class="sidebar-nav-link">
-						<a href="CreateCourse.html" class="active">
-							<i class="am-icon-wpforms sidebar-nav-link-logo"></i> 创建一节普通/同大纲课程
+						<a href="http://qa.xesv5.com/createCourseInTestEnvironmentByAPI" class="active">
+							<i class="am-icon-wpforms sidebar-nav-link-logo"></i>【测试环境】建课
 						</a>
 					</li>
+					<li class="sidebar-nav-link">
+						<a href="apiCreateCourse.jsp">
+							<i class="am-icon-wpforms sidebar-nav-link-logo"></i> 【线上环境】建课
+						</a>
+					</li>
+					
+					<li class="sidebar-nav-link">
+                		<a href="http://qa.xesv5.com/createCourseInTestEnvironment/create_requirement" >
+                    		<i class="am-icon-wpforms sidebar-nav-link-logo"></i> API层接口建课（测试环境中台）
+                		</a>
+           			</li>
 					<li class="sidebar-nav-link">
 						<a href="updating.html">
 							<i class="am-icon-wpforms sidebar-nav-link-logo"></i> 持续更新中，敬请期待
 						</a>
 					</li>
+					
 					<li class="sub-menu dcjq-parent-li" style="position:fixed;width:240px;bottom: 0px;border: 20px solid #3A4144;">
 						<!--<a href="javascript:;" class="active dcjq-parent">
 							<i class="fa fa-cogs"></i>-->
@@ -142,35 +153,35 @@
 										</div> -->
 										
 										<div class="am-form-group">
-											<label for="user-name" class="am-u-sm-3 am-form-label">建课人员Cookie
-											<span class="tpl-form-line-small-title">cookie</span>
+											<label for="user-name" class="am-u-sm-3 am-form-label">*建课人员Cookie
 										</label>
 											<div class="am-u-sm-9">
-												<input type="text" class="tpl-form-input" id="cookie" placeholder="建课人员的cookie" value=""> <small>建课人员的cookie，请输入建课人员的cookie，asid=***/wx_sid=***</small>
+												<input type="text" class="tpl-form-input" id="cookie"  value="" placeholder="测试环境下，admin后台的登录cookie，格式：asid=***或wx_sid=***">
 											</div>
 										</div>									
 										
 										<div class="am-form-group">
-											<label for="user-name" class="am-u-sm-3 am-form-label">审核人员Cookie
-											<span class="tpl-form-line-small-title">reviewCookie</span>
+											<label for="user-name" class="am-u-sm-3 am-form-label">*审核人员Cookie
+											
 										</label>
 											<div class="am-u-sm-9">
-												<input type="text" class="tpl-form-input" id="reviewCookie" placeholder="审核人员的cookie" value=""> <small>审核人员的cookie，请输入审核人员的cookie，asid=***/wx_sid=***</small>
+												<input type="text" class="tpl-form-input" id="reviewCookie"  value="" placeholder="审核人员admin后台的登录cookie，测试环境建课，与建课cookie一致即可，格式：asid=***或wx_sid=*** "> 
 											</div>
 										</div>
 										
 										<div class="am-form-group">
-											<label for="user-name" class="am-u-sm-3 am-form-label">课程前缀标识
-											<span class="tpl-form-line-small-title">namePrefix</span>
+											<label for="user-name" class="am-u-sm-3 am-form-label">*自定义课程名称
+											
 										</label>
 											<div class="am-u-sm-9">
-												<input type="text" class="tpl-form-input" id="namePrefix" placeholder="[test]" value="[test]"> <small>课程名称前缀标识，请输入课程名称前缀标识</small>
+												<input type="text" class="tpl-form-input" id="namePrefix" placeholder="请自定义你的课程名称"> 
+				
 											</div>
 										</div>							
 
 										<div class="am-form-group">
 											<label for="user-phone" class="am-u-sm-3 am-form-label">年级
-											<span class="tpl-form-line-small-title">grade</span>
+										
 										</label>
 											<div class="am-u-sm-9">
 												<select data-am-selected="{searchBox: 1}" style="display: none;" id="grade">
@@ -189,13 +200,12 @@
 													<option value="11">高一</option>
 													<option value="12">高二</option>
 													<option value="13">高三</option>
-												</select> <br /> <small>请选择所建课程对应的年级</small>
+												</select> <br /> 
 											</div>
 										</div>
 
 										<div class="am-form-group">
 											<label for="user-phone" class="am-u-sm-3 am-form-label">学科
-											<span class="tpl-form-line-small-title">subject</span>
 										</label>
 											<div class="am-u-sm-9">
 												<select data-am-selected="{searchBox: 1}" style="display: none;" id="subject">
@@ -234,13 +244,12 @@
 												<option value="航空航天">航空航天</option>
 												<option value="围棋">围棋</option>
 												<option value="故宫">故宫</option> -->
-												</select> <br /> <small>请选择你所建课程的学科</small>
+												</select> <br /> 
 											</div>
 										</div>
 
 										<div class="am-form-group">
 											<label for="user-phone" class="am-u-sm-3 am-form-label">学期
-											<span class="tpl-form-line-small-title">term</span>
 										</label>
 											<div class="am-u-sm-9">
 												<select data-am-selected="{searchBox: 1}" style="display: none;" id="term">
@@ -252,13 +261,12 @@
 													<option value="6">春下</option>
 													<option value="7">秋上</option>
 													<option value="8">秋下</option>
-												</select> <br /> <small>请选择你所建课程的学期对应的value（春季班/暑假班/秋季班/寒假班） 数字所对应的学期：1-春季班 2-暑假班 3-秋季班 4-寒假班</small>
+												</select> <br /> 
 											</div>
 										</div>																			
 
 										<div class="am-form-group">
 											<label for="user-phone" class="am-u-sm-3 am-form-label">课程品类
-											<span class="tpl-form-line-small-title">category</span>
 										</label>
 											<div class="am-u-sm-9">
 												<select data-am-selected="{searchBox: 1}" style="display: none;" id="category">
@@ -267,50 +275,58 @@
 													<option value="231">大班次卡</option>
 													<option value="232">1V1次卡</option>
 													<option value="1">录播</option>
-												</select> <br /> <small>请选择你所建课程的品类对应的value（直播小班/直播大班）
-												数字所对应的品类：8-直播小班 9-直播大班</small>
+												</select> <br /> 
 											</div>
 										</div>
 
 										<div class="am-form-group">
-											<label for="user-name" class="am-u-sm-3 am-form-label">场次数
-											<span class="tpl-form-line-small-title">catalog_num</span>
+											<label for="user-name" class="am-u-sm-3 am-form-label">*场次数
+							
 										</label>
 											<div class="am-u-sm-9">
-												<input type="text" class="tpl-form-input" id="catalog_num" placeholder="50" value="50"> <small>请输入你所建课程的场次</small>
+												<input type="text" class="tpl-form-input" id="catalog_num" placeholder="50" value="50"> 
 											</div>
 										</div>
 
+										<div class="am-form-group">
+											<label for="user-name" class="am-u-sm-3 am-form-label">课件ID
+											
+										</label>
+											<div class="am-u-sm-9">
+												<input type="text" class="tpl-form-input" id="materialId"  value="" placeholder="非必填，课程需要插入的课件ID">
+											</div>
+										</div>
+										
 										<div class="am-form-group">
 											<label for="user-name" class="am-u-sm-3 am-form-label">讲义ID
-											<span class="tpl-form-line-small-title">materialId</span>
+											
 										</label>
 											<div class="am-u-sm-9">
-												<input type="text" class="tpl-form-input" id="materialId" placeholder="" value=""> <small>请输入你所建课程所需要的讲义的ID</small>
+												<input type="text" class="tpl-form-input" id="jiangyiId"  value="" placeholder="非必填，课程需要插入的讲义ID">
 											</div>
 										</div>
 
 										<div class="am-form-group">
-											<label for="user-name" class="am-u-sm-3 am-form-label">主讲老师ID
-											<span class="tpl-form-line-small-title">teacherId</span>
+											<label for="user-name" class="am-u-sm-3 am-form-label">*主讲老师ID
+											
 										</label>
 											<div class="am-u-sm-9">
-												<input type="text" class="tpl-form-input" id="teacherId" placeholder="" value=""> <small>请输入你所建课程的主讲老师的ID</small>
+												<input type="text" class="tpl-form-input" id="teacherId"  value="" placeholder="请输入你所建课程的主讲老师ID">
 											</div>
 										</div>
 
 										<div class="am-form-group">
-											<label for="user-name" class="am-u-sm-3 am-form-label">辅导老师ID
-											<span class="tpl-form-line-small-title">counselorTeacherId</span>
+											<label for="user-name" class="am-u-sm-3 am-form-label">*辅导老师ID
+										
 										</label>
 											<div class="am-u-sm-9">
-												<input type="text" class="tpl-form-input" id="counselorTeacherId" placeholder="2377" value="2377"> <small>请输入你所建课程的辅导老师的ID</small>
+												<input type="text" class="tpl-form-input" id="counselorTeacherId" placeholder="请输入你所建课程的辅导老师ID">
 											</div>
 										</div>
 																						
 										<div class="am-form-group">
 											<label for="user-phone" class="am-u-sm-3 am-form-label">循环周期
-											<span class="tpl-form-line-small-title">cycleStr</span>
+											
 										</label>
 											<div class="am-u-sm-9">
 												<select data-am-selected="{searchBox: 1}" style="display: none;" id="cycleStr">
@@ -321,37 +337,46 @@
 													<option value="5">5天</option>
 													<option value="6">6天</option>
 													<option value="7" >7天</option>
-												</select> <br /> <small>请选择你所建课程所需时间模板的循环周期</small>
-											</div>
-										</div>
-
-										<div class="am-form-group">
-											<label for="user-name" class="am-u-sm-3 am-form-label">班级限额
-											<span class="tpl-form-line-small-title">courseLimit</span>
-										</label>
-											<div class="am-u-sm-9">
-												<input type="text" class="tpl-form-input" id="courseLimit" placeholder="10" value="10"> <small>请输入班级限额</small>
-											</div>
-										</div>
-
-										<div class="am-form-group">
-											<label for="user-name" class="am-u-sm-3 am-form-label">课程限额
-											<span class="tpl-form-line-small-title">classLimit</span>
-										</label>
-											<div class="am-u-sm-9">
-												<input type="text" class="tpl-form-input" id="classLimit" placeholder="2" value="2"> <small>请输入课程限额</small>
+												</select> <br /> 
 											</div>
 										</div>
 										
 										<div class="am-form-group">
-											<label for="user-name" class="am-u-sm-3 am-form-label">已存在的大纲ID
-											<span class="tpl-form-line-small-title">existedOutlineId</span>
+                                    <label for="categorytype" class="am-u-sm-3 am-form-label">直播课
+                                    </label>
+                                    <div class="am-u-sm-9">
+                                        <select data-am-selected="{searchBox: 1}" style="display: none;" id="categorytype" name="categorytype">
+                                            <option value="1">普通直播课</option>
+                                            <option value="2">同大纲课程</option>
+                                        </select> <br /><small>建同大纲课时需勾选填写，否则默认即可</small>         
+                                    </div>
+                                </div>
+                                    <div class="am-form-group"  id="existOutLineBox">
+                                    <label  for="existOutLineId" class="am-u-sm-3 am-form-label">*已有大纲ID
+                                    </label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" class="tpl-form-input" id="existedOutlineId" name="existedOutlineId" placeholder="请输入已有大纲ID">
+                                    </div>
+                                </div>
+										
+										<div class="am-form-group">
+											<label for="user-name" class="am-u-sm-3 am-form-label">*班级限额
+											
 										</label>
 											<div class="am-u-sm-9">
-												<input type="text" class="tpl-form-input" id="existedOutlineId" placeholder="" value=""> <small>已存在的大纲ID，非创建同大纲课程的伙伴请忽略！！！</small>
+												<input type="text" class="tpl-form-input" id="courseLimit" placeholder="10" value="10" placeholder="请输入班级限额">
 											</div>
 										</div>
-										
+
+										<div class="am-form-group">
+											<label for="user-name" class="am-u-sm-3 am-form-label">*课程限额
+											
+										</label>
+											<div class="am-u-sm-9">
+												<input type="text" class="tpl-form-input" id="classLimit" placeholder="5" value="5" placeholder="请输入课程限额">
+											</div>
+										</div>
+																		
 										<div class="am-form-group">
 											<div class="am-u-sm-9 am-u-sm-push-3">
 												<button type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success " onclick="createCourse()">开始构建</button>
@@ -366,6 +391,19 @@
 				</div>
 			</div>
 		</div>
+	<script>
+       $(function(){
+            $("#existOutLineBox").hide();
+            $("#categorytype").change(function(){
+            if($(this).val()==1){
+               $("#existOutLineBox").hide();
+            }else if($(this).val()==2){
+                 $("#existOutLineBox").show();
+            }
+          })
+        })
+       </script>
+		
 		<script type="application/javascript">
 			function createCourse() {
 				//打点
@@ -374,6 +412,7 @@
 					async:false,
 					url:"http://192.168.32.18:8085/projectdot/add?projectName=CreateCourseWeb&userName=anonymous",		
 				});
+				
 				var course = {
 					cookie: $("#cookie").val().trim(),
 					reviewCookie: $("#reviewCookie").val().trim(),
@@ -384,6 +423,7 @@
 					category: $("#category").val().trim(),
 					catalog_num: $("#catalog_num").val().trim(),
 					materialId: $("#materialId").val().trim(),
+					jiangyiId: $("#jiangyiId").val().trim(),
 					teacherId: $("#teacherId").val().trim(),
 					counselorTeacherId: $("#counselorTeacherId").val().trim(),
 					cycleStr: $("#cycleStr").val().trim(),
@@ -395,20 +435,24 @@
 				var result=' ';
 				 $.ajax({
 					type: "post",
-					url: "/CreateCourse/CreateCourseAPI",
+					url: "/coursefarm/CreateCourseAPI",
 					dataType: 'json',
 					//必需设定，后台@RequestBody会根据它做数据反序列化
 					contentType: "application/json;charset=UTF-8",
 					//必需把JSON数据以字符串的格式提交
 					data: JSON.stringify(course),
 					error:function(res){
-						alert("创建失败");
+						alert("建课失败");
 					},
 					success: function(res) {
 						$("#data").html(res);
 						if(res.match('建课成功')!=null){
-							var url = res.split('买课链接为');
-							window.open(url[1]);
+							//var url = res.split('买课链接为');
+							//window.open(url[1]);
+							var con=confirm("建课成功啦~~~\n是否打开快速购课页买课？"); //在页面上弹出对话   
+                            if(con==true){
+                               window.open("http://192.168.181.79:2020/shopping-cart.html");
+                            }
 						}	
 					}
 				}); 				 
@@ -427,8 +471,8 @@
 		
 		<footer>
 			<div class="admin-content-footer">
-				© 2018 XES_QA
-				<a href="http://www.xueersi.com" target="_blank">www.xueersi.com</a> powered by 学习研发中心测试组 created by 张洁
+				© 2019 XES_QA
+				<a href="http://www.xueersi.com" target="_blank">www.xueersi.com</a> powered by 学研测试组
 			</div>
 		</footer>
 	</body>

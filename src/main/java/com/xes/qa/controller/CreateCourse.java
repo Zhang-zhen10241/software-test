@@ -5,8 +5,6 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,21 +17,22 @@ import com.offbytwo.jenkins.model.JobWithDetails;
 import com.xes.qa.model.OneCourse;
 import com.xes.qa.service.CreateCourseNew;
 
+
+
 @Controller
 @RequestMapping("")
 public class CreateCourse {
 	
-	@RequestMapping(value = { "/putong" })
-	public String createPutong() {
-		System.out.println("==createPutong===================");
-		return "putong";
+	@RequestMapping(value = { "/apiCreateCourse" })
+	public String createPutongCourse() {
+		System.out.println("====apiCreateCourse======");
+		return "apiCreateCourse";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/CreateCourseAPI", method = RequestMethod.POST)
 	public String createCourse(@RequestBody OneCourse course) throws Exception {
-		CreateCourseNew ccn = new CreateCourseNew();
-		String result=ccn.createNewCourse(course);
+		String result=CreateCourseNew.createNewCourse(course);
 		return JSONObject.toJSONString(result);
 	}
 
