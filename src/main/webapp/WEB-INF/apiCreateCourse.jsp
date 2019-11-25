@@ -61,12 +61,12 @@
 				<ul class="sidebar-nav">
 					
 					<li class="sidebar-nav-link">
-						<a href="http://qa.xesv5.com/createCourseInTestEnvironmentByAPI" class="active">
+						<a href="http://qa.xesv5.com/coursefarm/apiCreateCourse" class="active">
 							<i class="am-icon-wpforms sidebar-nav-link-logo"></i>【测试环境】建课
 						</a>
 					</li>
 					<li class="sidebar-nav-link">
-						<a href="apiCreateCourse.jsp">
+						<a href="http://192.168.125.39:8080/coursefarm/apiCreateCourseOnline/">
 							<i class="am-icon-wpforms sidebar-nav-link-logo"></i> 【线上环境】建课
 						</a>
 					</li>
