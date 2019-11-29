@@ -442,13 +442,11 @@
 					//必需把JSON数据以字符串的格式提交
 					data: JSON.stringify(course),
 					error:function(res){
-						alert("建课失败");
+						alert("建课失败，请检查填写的cookie是否为【测试环境】admin登录cookie");
 					},
 					success: function(res) {
 						$("#data").html(res);
 						if(res.match('建课成功')!=null){
-							//var url = res.split('买课链接为');
-							//window.open(url[1]);
 							var con=confirm("建课成功啦~~~\n是否打开快速购课页买课？"); //在页面上弹出对话   
                             if(con==true){
                                window.open("http://192.168.181.79:2020/shopping-cart.html");
