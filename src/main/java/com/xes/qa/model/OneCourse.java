@@ -14,6 +14,7 @@ public class OneCourse {
 	private String teacherId;
 	private String counselorTeacherId;
 	private String cycleStr;
+	private String pattern;
 	private String classLimit;
 	private String courseLimit;
 	private String existedOutlineId;
@@ -23,7 +24,7 @@ public class OneCourse {
 		// TODO Auto-generated constructor stub
 	}
 	public OneCourse(String cookie, String reviewCookie, String namePrefix,  String grade, String subject, String term, String category, String catalog_num, String materialId, String jiangyiId,String teacherId,
-			String counselorTeacherId,  String cycleStr,String classLimit, String courseLimit,String existOutLineId) {
+			String counselorTeacherId,String cycleStr,String pattern,String classLimit, String courseLimit,String existOutLineId) {
 		super();
 		this.cookie = cookie;
 		this.reviewCookie = reviewCookie;
@@ -38,10 +39,12 @@ public class OneCourse {
 		this.teacherId = teacherId;
 		this.counselorTeacherId = counselorTeacherId;
 		this.cycleStr = cycleStr;
+		this.pattern = pattern;
 		this.classLimit = classLimit;
 		this.courseLimit = courseLimit;
 		this.existedOutlineId = existedOutlineId;
 	}
+	
 	public String getCookie() {
 		return cookie;
 	}
@@ -119,6 +122,12 @@ public class OneCourse {
 	}
 	public void setCycleStr(String cycleStr) {
 		this.cycleStr = cycleStr;
+	}
+	public String getPattern() {
+		return pattern;
+	}
+	public void setPattern(String pattern) {
+		this.pattern = pattern;
 	}
 	public String getClassLimit() {
 		return classLimit;

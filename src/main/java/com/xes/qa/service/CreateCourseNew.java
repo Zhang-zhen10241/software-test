@@ -39,6 +39,7 @@ public class CreateCourseNew {
 	static String namePrefix = "";//课程名称前缀，增加辨识度
 	static String courseName = "";//课程名称
 	static String cycleStr = "";//循环周期，如7
+	static String pattern = "";//直播模式，三分屏、半身直播等
 	static String subject = "";//学科的key，如“数学”“语文”
 	static String category = "";//课程品类的key，如“直播小班”
 	static String materialId = "";//课件ID
@@ -75,7 +76,8 @@ public class CreateCourseNew {
 		
 		catalog_num=Integer.parseInt(course.getCatalog_num());
 		namePrefix = course.getNamePrefix();
-		cycleStr = course.getCycleStr();
+		cycleStr = course.getCycleStr(); 
+		pattern = course.getPattern();
 		subject= course.getSubject();
 		category = course.getCategory();
 		teacherId = course.getTeacherId();
@@ -91,21 +93,6 @@ public class CreateCourseNew {
 		term=course.getTerm().trim();		
 		courseDuration = Integer.parseInt(cycleStr)*catalog_num;		
 	}
-//		System.out.println("catalog_num:"+catalog_num);
-//		System.out.println("subject:"+subject);
-//		System.out.println("namePrefix:"+namePrefix);
-//		System.out.println("cycleStr:"+cycleStr);
-//		System.out.println("category:"+category);
-//		System.out.println("teacherId:"+teacherId);
-//		System.out.println("materialId:"+materialId);
-//		System.out.println("existedOutlineId:"+existedOutlineId);
-//		System.out.println("courseLimit:"+courseLimit);
-//		System.out.println("classLimit:"+classLimit);
-//		System.out.println("counselorTeacherId:"+counselorTeacherId);
-//		System.out.println("grade:"+grade);
-//		System.out.println("reviewCookie:"+reviewCookie);
-//		System.out.println("cookie:"+cookie);
-//		System.out.println("term:"+term);
 
 	/**
 	 * 
@@ -332,7 +319,7 @@ public class CreateCourseNew {
 		String teacher_class_durations = "\"teacher_class_durations\":[";
 		String counselor_class_durations ="\"counselor_class_durations\":[";
 		String study_report_id="\"study_report_id\":[";
-		String pattern = "\"pattern\":[";
+		String patternType = "\"pattern\":[";
 		for(int i=0;i<catalog_num;i++){
 			if(i==catalog_num-1){
 				catalog_ids+="\"0\"],";
@@ -341,9 +328,11 @@ public class CreateCourseNew {
 				counselor_class_durations+="\"20\"],";
 				study_report_id+="\"1\"],";
 				if(i==0){
-					pattern+="\"1\"]";
+//					pattern+="\"1\"]";
+					patternType+="\""+pattern+"\"]";
 				}else{
-					pattern+="\"1\"],";
+//					pattern+="\"1\"],";
+					patternType+="\""+pattern+"\"],";
 				}			
 			}else{
 				catalog_ids+="\"0\",";
@@ -351,7 +340,8 @@ public class CreateCourseNew {
 				teacher_class_durations+="\"120\",";
 				counselor_class_durations+="\"20\",";
 				study_report_id+="\"1\",";
-				pattern+="\"1\",";
+//				pattern+="\"1\",";
+				patternType+="\""+pattern+"\",";
 			}			
 		}
 		String mode_ids = "";
@@ -362,7 +352,7 @@ public class CreateCourseNew {
 				mode_ids+="\"mode_ids["+i+"]\":\"1\",";
 			}			
 		}
-		String sendStr ="data={"+ id+"\"tag_id\":[\"0\"],\"tag_name\":[\"0\"],"+catalog_ids+catalog_name+"\"mode_ids[0]\":\"1\","+teacher_class_durations+counselor_class_durations+study_report_id+pattern+mode_ids+"}";
+		String sendStr ="data={"+ id+"\"tag_id\":[\"0\"],\"tag_name\":[\"0\"],"+catalog_ids+catalog_name+"\"mode_ids[0]\":\"1\","+teacher_class_durations+counselor_class_durations+study_report_id+patternType+mode_ids+"}";
 		System.out.println("上送数据信息为：" + sendStr);
 		responseStr = HttpUtil.sendPostRequestWithCookies(url, referer, sendStr, contentType, cookie);
 		String addCatalogueResult="添加大纲目录失败，请检查参数或查看该大纲是否已发布";
@@ -614,9 +604,9 @@ public class CreateCourseNew {
 			int j=Integer.parseInt(cycleStr);
 			j=j*(i-1);
 			if(i==catalog_num){
-				planInfos+="{\"catalogId\":\""+outlineCatalogIdList.get(i-1)+"\",\"mode\":\"1\",\"pattern\":\"1\",\"planName\":\"测试场次"+i+"\",\"teacherId\":\""+teacherId+"\",\"day\":\""+ToolUtil.getDateFuture(j+1)+"\",\"hourStart\":\"02\",\"muniteStart\":\"00\",\"hourEnd\":\"04\",\"mumiteEnd\":\"00\",\"videoResources\":\"\"}]";
+				planInfos+="{\"catalogId\":\""+outlineCatalogIdList.get(i-1)+"\",\"mode\":\"1\",\"pattern\":\""+pattern+"\",\"planName\":\"测试场次"+i+"\",\"teacherId\":\""+teacherId+"\",\"day\":\""+ToolUtil.getDateFuture(j+1)+"\",\"hourStart\":\"02\",\"muniteStart\":\"00\",\"hourEnd\":\"04\",\"mumiteEnd\":\"00\",\"videoResources\":\"\"}]";
 			}else{
-				planInfos+="{\"catalogId\":\""+outlineCatalogIdList.get(i-1)+"\",\"mode\":\"1\",\"pattern\":\"1\",\"planName\":\"测试场次"+i+"\",\"teacherId\":\""+teacherId+"\",\"day\":\""+ToolUtil.getDateFuture(j+1)+"\",\"hourStart\":\"02\",\"muniteStart\":\"00\",\"hourEnd\":\"04\",\"mumiteEnd\":\"00\",\"videoResources\":\"\"},";
+				planInfos+="{\"catalogId\":\""+outlineCatalogIdList.get(i-1)+"\",\"mode\":\"1\",\"pattern\":\""+pattern+"\",\"planName\":\"测试场次"+i+"\",\"teacherId\":\""+teacherId+"\",\"day\":\""+ToolUtil.getDateFuture(j+1)+"\",\"hourStart\":\"02\",\"muniteStart\":\"00\",\"hourEnd\":\"04\",\"mumiteEnd\":\"00\",\"videoResources\":\"\"},";
 			}
 		}
 		String sendStr = name+id+select_teacher_id+select_teacher_name+select_time_template_id+"&teacher_salary=0&term_id=0&planInfos=["+planInfos;
@@ -859,9 +849,30 @@ public class CreateCourseNew {
 	 * @throws
 	 */
 	public static String result(){
-			return "建课成功~~~"+"  课程名称："+courseName+"<br></br>大纲ID："+outlineId+"，场次包ID："+sessionPackageId+"，课程ID："+courseId+"，辅导班ID："+counselorCourseId+"<br></br>买课链接为:https://www.xueersi.com/course-detail/"+courseId+"/"+counselorCourseId;		
+			return "建课成功~~~"+"  课程名称："+courseName+"<br></br>大纲ID："+outlineId+"，场次包ID："+sessionPackageId+"，课程ID："+courseId+"，辅导班ID："+counselorCourseId+"。<br></br>买课链接为:https://www.xueersi.com/course-detail/"+courseId+"/"+counselorCourseId;		
 	}
 	
+	
+	/**
+	 * 
+	 * @Title:courseInfo   
+	 * @Description:建课流程的结果
+	 * @param:@return      
+	 * @return:String      
+	 * @throws
+	 */
+	public static void courseInfo() {	  
+		
+		  String responseStr = null;
+		  String url = "http://192.168.1.121:2021/getClassInfo";
+		  String sendStr = "?courseId="+courseId+"&classId="+counselorCourseId;
+		  System.out.println("上送数据信息为---：" + sendStr);
+		  responseStr = HttpUtil.sendGetRequest(url+sendStr);
+		  System.out.println("res---!!!： " + responseStr);
+//		  if(responseStr!=null){
+//			  
+//		  }  
+		}
 	
 	public static void main(String[] args) {
 		

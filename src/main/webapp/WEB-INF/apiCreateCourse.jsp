@@ -342,13 +342,27 @@
 										</div>
 										
 										<div class="am-form-group">
-                                    <label for="categorytype" class="am-u-sm-3 am-form-label">直播课
+											<label for="user-phone" class="am-u-sm-3 am-form-label">直播模式
+											
+										</label>
+											<div class="am-u-sm-9">
+												<select data-am-selected="{searchBox: 1}" style="display: none;" id="pattern">
+													<option value="1" selected="selected">三分屏直播</option>
+													<option value="6">半身直播</option>
+													<option value="2">全身直播</option>
+													<option value="9">小组课（半身）</option>		
+												</select> <br /> 
+											</div>
+										</div>
+										
+										<div class="am-form-group">
+                                    <label for="categorytype" class="am-u-sm-3 am-form-label">同大纲
                                     </label>
                                     <div class="am-u-sm-9">
                                         <select data-am-selected="{searchBox: 1}" style="display: none;" id="categorytype" name="categorytype">
-                                            <option value="1">普通直播课</option>
-                                            <option value="2">同大纲课程</option>
-                                        </select> <br /><small>建同大纲课时需勾选填写，否则默认即可</small>         
+                                            <option value="1" selected="selected">否</option>
+                                            <option value="2">是</option>
+                                        </select> <br /><small>建同大纲课时请勾选"是"</small>         
                                     </div>
                                 </div>
                                     <div class="am-form-group"  id="existOutLineBox">
@@ -364,7 +378,7 @@
 											
 										</label>
 											<div class="am-u-sm-9">
-												<input type="text" class="tpl-form-input" id="courseLimit" placeholder="10" value="10" placeholder="请输入班级限额">
+												<input type="text" class="tpl-form-input" id="classLimit" placeholder="5" value="5" placeholder="请输入班级限额">
 											</div>
 										</div>
 
@@ -373,7 +387,7 @@
 											
 										</label>
 											<div class="am-u-sm-9">
-												<input type="text" class="tpl-form-input" id="classLimit" placeholder="5" value="5" placeholder="请输入课程限额">
+												<input type="text" class="tpl-form-input" id="courseLimit" placeholder="100" value="100" placeholder="请输入课程限额">
 											</div>
 										</div>
 																		
@@ -410,7 +424,7 @@
 				$.ajax({
 					type:"GET",
 					async:false,
-					url:"http://192.168.32.18:8085/projectdot/add?projectName=CreateCourseWeb&userName=anonymous",		
+					url:"http://10.90.71.141:8088/projectdot/add?projectName=CreateCourseWeb&userName=anonymous",		
 				});
 				
 				var course = {
@@ -427,6 +441,7 @@
 					teacherId: $("#teacherId").val().trim(),
 					counselorTeacherId: $("#counselorTeacherId").val().trim(),
 					cycleStr: $("#cycleStr").val().trim(),
+					pattern: $("#pattern").val().trim(),
 					courseLimit: $("#courseLimit").val().trim(),
 					classLimit: $("#classLimit").val().trim(),
 					existedOutlineId: $("#existedOutlineId").val().trim()				
@@ -449,7 +464,12 @@
 						if(res.match('建课成功')!=null){
 							var con=confirm("建课成功啦~~~\n是否打开快速购课页买课？"); //在页面上弹出对话   
                             if(con==true){
-                               window.open("http://192.168.181.79:2020/shopping-cart.html");
+                             //  window.open("http://10.170.152.234:2020/shopping-cart.html");
+                             	var courseId = res.substring(res.indexOf('课程ID：')+5,res.indexOf('辅导班ID')-1);
+                             	var classId = res.substring(res.indexOf('辅导班ID：')+6,res.indexOf('。'));
+                             	var url = 'http://10.170.152.234:2021/getClassInfo?'+'courseId='+courseId+'&classId='+classId;
+                             	console.log(url);
+                            	window.open(url);
                             }
 						}	
 					}
