@@ -66,7 +66,7 @@
 						</a>
 					</li>
 					<li class="sidebar-nav-link">
-						<a href="http://10.170.211.153:8080/coursefarm/apiCreateCourseOnline">
+						<a href="http://10.170.150.20:8080/coursefarm/apiCreateCourseOnline">
 							<i class="am-icon-wpforms sidebar-nav-link-logo"></i> 【线上环境】建课
 						</a>
 					</li>
