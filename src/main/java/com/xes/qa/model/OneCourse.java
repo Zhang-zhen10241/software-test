@@ -2,7 +2,7 @@ package com.xes.qa.model;
 
 public class OneCourse {
 	private String cookie;
-	private String reviewCookie;
+//	private String reviewCookie;
 	private String namePrefix;
 	private String grade;
 	private String subject;
@@ -17,6 +17,7 @@ public class OneCourse {
 	private String pattern;
 	private String classLimit;
 	private String courseLimit;
+	private String classType;
 	private String existedOutlineId;
 	
 	public OneCourse() {
@@ -24,10 +25,10 @@ public class OneCourse {
 		// TODO Auto-generated constructor stub
 	}
 	public OneCourse(String cookie, String reviewCookie, String namePrefix,  String grade, String subject, String term, String category, String catalog_num, String materialId, String jiangyiId,String teacherId,
-			String counselorTeacherId,String cycleStr,String pattern,String classLimit, String courseLimit,String existOutLineId) {
+			String counselorTeacherId,String cycleStr,String pattern,String classLimit, String courseLimit,String classType,String existOutLineId) {
 		super();
 		this.cookie = cookie;
-		this.reviewCookie = reviewCookie;
+//		this.reviewCookie = reviewCookie;
 		this.namePrefix = namePrefix;
 		this.grade = grade;
 		this.subject = subject;
@@ -42,6 +43,7 @@ public class OneCourse {
 		this.pattern = pattern;
 		this.classLimit = classLimit;
 		this.courseLimit = courseLimit;
+		this.classType = classType;
 		this.existedOutlineId = existedOutlineId;
 	}
 	
@@ -51,12 +53,12 @@ public class OneCourse {
 	public void setCookie(String cookie) {
 		this.cookie = cookie;
 	}
-	public String getReviewCookie() {
-		return reviewCookie;
-	}
-	public void setReviewCookie(String reviewCookie) {
-		this.reviewCookie = reviewCookie;
-	}
+//	public String getReviewCookie() {
+//		return reviewCookie;
+//	}
+//	public void setReviewCookie(String reviewCookie) {
+//		this.reviewCookie = reviewCookie;
+//	}
 	public String getNamePrefix() {
 		return namePrefix;
 	}
@@ -140,6 +142,12 @@ public class OneCourse {
 	}
 	public void setCourseLimit(String courseLimit) {
 		this.courseLimit = courseLimit;
+	}
+	public String getClassType() {
+		return classType;
+	}
+	public void setClassType(String classType) {
+		this.classType = classType;
 	}
 	public String getExistedOutlineId() {
 		return existedOutlineId;

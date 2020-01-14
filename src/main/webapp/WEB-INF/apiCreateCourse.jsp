@@ -156,18 +156,18 @@
 											<label for="user-name" class="am-u-sm-3 am-form-label">*建课人员Cookie
 										</label>
 											<div class="am-u-sm-9">
-												<input type="text" class="tpl-form-input" id="cookie"  value="" placeholder="测试环境下，admin后台的登录cookie，格式：asid=***或wx_sid=***">
+												<input type="text" class="tpl-form-input" id="cookie"  value="" placeholder="测试环境下，admin后台的登录cookie，格式：asid=***">
 											</div>
 										</div>									
 										
-										<div class="am-form-group">
+										<!-- <div class="am-form-group">
 											<label for="user-name" class="am-u-sm-3 am-form-label">*审核人员Cookie
 											
 										</label>
 											<div class="am-u-sm-9">
 												<input type="text" class="tpl-form-input" id="reviewCookie"  value="" placeholder="审核人员admin后台的登录cookie，测试环境建课，与建课cookie一致即可，格式：asid=***或wx_sid=*** "> 
 											</div>
-										</div>
+										</div> -->
 										
 										<div class="am-form-group">
 											<label for="user-name" class="am-u-sm-3 am-form-label">*自定义课程名称
@@ -355,6 +355,21 @@
 											</div>
 										</div>
 										
+										
+										<div class="am-form-group">
+											<label for="user-phone" class="am-u-sm-3 am-form-label">分班类型
+											
+										</label>
+											<div class="am-u-sm-9">
+												<select data-am-selected="{searchBox: 1}" style="display: none;" id="classType">
+													<option value="1" selected="selected">常规分班</option>
+													<option value="3">无辅导类型</option>
+													<option value="6">专属分班</option>
+													<option value="7">自助分班</option>		
+												</select> <br /> 
+											</div>
+										</div>
+										
 										<div class="am-form-group">
                                     <label for="categorytype" class="am-u-sm-3 am-form-label">同大纲
                                     </label>
@@ -429,7 +444,7 @@
 				
 				var course = {
 					cookie: $("#cookie").val().trim(),
-					reviewCookie: $("#reviewCookie").val().trim(),
+					//reviewCookie: $("#reviewCookie").val().trim(),
 					namePrefix: $("#namePrefix").val().trim(),
 					grade: $("#grade").val().trim(),
 					subject: $("#subject").val().trim(),
@@ -444,6 +459,7 @@
 					pattern: $("#pattern").val().trim(),
 					courseLimit: $("#courseLimit").val().trim(),
 					classLimit: $("#classLimit").val().trim(),
+					classType: $("#classType").val().trim(),
 					existedOutlineId: $("#existedOutlineId").val().trim()				
 				};
 				console.log(course);
@@ -464,7 +480,6 @@
 						if(res.match('建课成功')!=null){
 							var con=confirm("建课成功啦~~~\n是否打开快速购课页买课？"); //在页面上弹出对话   
                             if(con==true){
-                             //  window.open("http://10.170.152.234:2020/shopping-cart.html");
                              	var courseId = res.substring(res.indexOf('课程ID：')+5,res.indexOf('辅导班ID')-1);
                              	var classId = res.substring(res.indexOf('辅导班ID：')+6,res.indexOf('。'));
                              	var url = 'http://10.170.152.234:2021/getClassInfo?'+'courseId='+courseId+'&classId='+classId;

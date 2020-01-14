@@ -47,6 +47,7 @@ public class CreateCourseNew {
 	static String teacherId="";//主讲老师ID
 	static int courseLimit = 10;
 	static int classLimit = 2;
+	static int classType = 1;
 	static String counselorTeacherId = "";
 	static String cookie = "";
 	static String reviewCookie = "";
@@ -86,9 +87,11 @@ public class CreateCourseNew {
 		existedOutlineId = course.getExistedOutlineId();
 		courseLimit = Integer.parseInt(course.getCourseLimit());
 		classLimit = Integer.parseInt(course.getClassLimit());
+		classType = Integer.parseInt(course.getClassType());
 		counselorTeacherId = course.getCounselorTeacherId();
 		cookie = course.getCookie().trim();
-		reviewCookie = course.getReviewCookie().trim();
+//		reviewCookie = course.getReviewCookie().trim();
+		reviewCookie = cookie;
 		grade = course.getGrade().trim();
 		term=course.getTerm().trim();		
 		courseDuration = Integer.parseInt(cycleStr)*catalog_num;		
@@ -760,15 +763,14 @@ public class CreateCourseNew {
 		String responseStr = null;
 		String url = "http://admin.xesv5.com/Course/saveCourseExtraInfo";
 		String contentType = "application/x-www-form-urlencoded";
-		//courseQuota=100&courseClassLimit=2&classType=1&id=51023
-		String sendStr = "courseQuota="+courseLimit+"&courseClassLimit="+classLimit+"&classType=1&id="+courseId;
+		String sendStr = "courseQuota="+courseLimit+"&courseClassLimit="+classLimit+"&classType="+classType+"&id="+courseId;
 		System.out.println("上送数据信息为："+sendStr);
 		responseStr = HttpUtil.sendPostRequest2(url,sendStr,contentType,cookie);
 		String addLimitResult="添加限额失败";
 		if (responseStr.contains("\"stat\":1")) {
 			addLimitResult = "添加限额成功";
 			resMessage = "返回数据信息为：" +ToolUtil.ascii2Native(responseStr)+ "\n" +"******"+ addLimitResult+"******";
-			System.out.println(resMessage);
+			System.out.println(resMessage+"!!!!!!!!!!!!!!!!!!!!!!!!");
 			return true;
 		}else{
 			createCourseResult=false;
