@@ -252,14 +252,16 @@ public class CreateCourseNew {
 	 *  @return:String 
 	 *  @throws
 	 */
+	
 	public static boolean addOutline(OneCourse course) {
 		System.out.println("******开始新建大纲******");
 		String responseStr = null;
 		String url = "http://admin.xesv5.com/Outline/saveOutline";
-		String referer = "http://admin.xesv5.com/Outline/addOutline";
+//		String referer = "http://admin.xesv5.com/Outline/addOutline";
 		String contentType = "application/x-www-form-urlencoded; charset=UTF-8";
 		String gradeIDS = "";
 		String sendStr = "";
+		String materialType = "&material_types[]=16&append_material_types=1,2,11,16,53&material_types=1,2,11,53,16";
 		/*for (String grade : course.getGrade()) {
 			gradeIDS += "&grade_ids[]=" + grade;
 		}*/
@@ -273,11 +275,11 @@ public class CreateCourseNew {
 		if(subject.equals("26")){
 			sendStr = "name=" + outlineName + "&category=" + category  + "&subject_ids=" + subject +gradeIDS+"&learningstage_ids=90"+ termIDS
 					+ "&language_type=1&year_id=22&textbook_id=&version_id=&difficulty_id=&area_id=1&price=1&catalog_num="
-					+ course.getCatalog_num() + "&outline_type=1";
+					+ course.getCatalog_num() + "&outline_type=1"+materialType;
 		}else{
 			sendStr = "name=" + outlineName + "&category=" + category  + "&subject_ids=" + subject +gradeIDS+ termIDS
 					+ "&language_type=1&year_id=22&textbook_id=&version_id=&difficulty_id=&area_id=1&price=1&catalog_num="
-					+ course.getCatalog_num() + "&outline_type=1";
+					+ course.getCatalog_num() + "&outline_type=1"+materialType;
 		}
 		//name=test001&category=8&subject_ids=26&grade_ids%5B%5D=2&learningstage_ids=90&term_ids%5B%5D=1&language_type=1&year_id=22&
 		//textbook_id=&version_id=&difficulty_id=&price=1&catalog_num=&outline_type=1
@@ -353,10 +355,13 @@ public class CreateCourseNew {
 				mode_ids+="\"mode_ids["+i+"]\":\"1\"";
 			}else{
 				mode_ids+="\"mode_ids["+i+"]\":\"1\",";
-			}			
+			}	   
+
+			     
+
 		}
-		String sendStr ="data={"+ id+"\"tag_id\":[\"0\"],\"tag_name\":[\"0\"],"+catalog_ids+catalog_name+"\"mode_ids[0]\":\"1\","+teacher_class_durations+counselor_class_durations+study_report_id+patternType+mode_ids+"}";
-		System.out.println("上送数据信息为：" + sendStr);
+		String sendStr ="data={"+ id+"\"notDefaultIds\":[\"16\"],\"material_types[]\":[\"16\"],\"material_types\":[\"1,2,11,53,16\"],\"tag_id\":[\"0\"],\"tag_name\":[\"0\"],"+catalog_ids+catalog_name+"\"mode_ids[0]\":\"1\","+teacher_class_durations+counselor_class_durations+study_report_id+patternType+mode_ids+"}";
+		System.out.println("上送数据信息为----------hmhm-添加大纲目录：" + sendStr);
 		responseStr = HttpUtil.sendPostRequestWithCookies(url, referer, sendStr, contentType, cookie);
 		String addCatalogueResult="添加大纲目录失败，请检查参数或查看该大纲是否已发布";
 		if (responseStr.contains("\"stat\":1")) {
@@ -824,7 +829,7 @@ public class CreateCourseNew {
 		String responseStr = null;
 		String url="http://admin.xesv5.com/LiveClass/save";
 		String contentType = "application/x-www-form-urlencoded";
-		String sendStr="className="+namePrefix+"-测试-辅导班-"+"&counselorId="+counselorTeacherId+"&classQuota="+classLimit+"&recommend=0&autoBuildroom=1&classStuType=1&id="+courseId;
+		String sendStr="className="+namePrefix+"-测试-辅导班-"+"&counselorId="+counselorTeacherId+"&classQuota="+classLimit+"&recommend=1&autoBuildroom=1&classStuType=1&id="+courseId;
 		System.out.println("上送数据信息为："+sendStr);
 		responseStr = HttpUtil.sendPostRequest2(url, sendStr, contentType,cookie);
 		String addCounselorCourseResult = "创建辅导班失败";	
