@@ -194,6 +194,7 @@
 													<option value="5">四年级</option>
 													<option value="6">五年级</option>
 													<option value="7">六年级</option>
+													<option value="26">预初</option>
 													<option value="8">初一</option>
 													<option value="9">初二</option>
 													<option value="10">初三</option>
